@@ -6,10 +6,13 @@ import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard' 
 import NewQuestion from './NewQuestion'
 import Login from './Login'
-// import Question from './Question'
+import Question from './Question'
+import UserQuestion from './UserQuestion'
 import Nav from './Nav'
 
 class App extends Component {
+	
+	
 	componentDidMount() {
 		console.log('Inside componentDidMount')
 		this.props.dispatch(handleInitialData())
@@ -22,14 +25,14 @@ class App extends Component {
 			<Router>
 				<Fragment>
 					{/*<LoadingBar />*/}
-							<Nav />
-					{this.props.loading === true && this.props.authedUser === ''
-						? null
-						: <div>
-							<Route path='/' component={Dashboard} />
-							<Route path='/new' component={NewQuestion} />	
-							<Route path='/login' component={Login} />
-						</div>
+					<Nav />
+					{this.props.authedUser === null
+						? <Route path='/login' component={Login} />
+							: <div>
+								<Route exact path='/' component={Dashboard} />
+								<Route exact path='/new' component={NewQuestion} />	
+								<Route exact path='/login' component={Login} />
+							</div>
 					}
 				</Fragment>
 			</Router>

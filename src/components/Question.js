@@ -20,49 +20,56 @@ class Question extends Component {
 	}
 	
 	render() {
-		const { authedUser, question } = this.props
+		const { authedUser, users, question } = this.props
 		
 		if (question === null) {
 			return <p>This Question does not exist</p>
 		}
 		
-		console.log(question)
+		console.log('question: ', question)
 		
-		const { id, avatarURL, timestamp, optionOne, optionTwo } = question
+		const { id, timestamp, optionOne, optionTwo } = question
 		
 		console.log(`optionOne: ${optionOne.text}`)
 		
 		return (
 			<div>
-				<p>Name:</p>
-				<div>
-					<span>
-						<img
-							src={avatarURL}
-							alt={`Avatar of`}
-							className='avatar'
-						/>
-					</span>
-					<div>
-						<h3>Would You Rather...</h3>
-						<form>
-							<input 
-								type='radio' 
-								id='optionOne' 
-								name='optionOne' 
-								value='optionOne'
-								size='30'
-							/>
-							<input
-								type='radio' 
-								id='optionTwo' 
-								name='optionTwo' 
-								value={optionTwo.text}
-							/>
-							<button className='btn' onClick={this.handleQuestion}></button>
-						</form>	
-					</div>
-				</div>
+				{Object.values(users).map((user) => 
+					question.author === user.id 
+						? (<div>
+							<div>{user.name} asks:</div>
+							<div>
+								<span>
+									<img 
+										src={user.avatarURL}
+										alt={'Avatar of ${user.name}'}
+										className='avatar'
+									/>
+								</span>
+								<div>
+									<h3>Would You Rather...</h3>
+									<form>
+										<input 
+											type='radio' 
+											id='optionOne' 
+											name='optionOne' 
+											value={optionOne.text}
+											size='30'
+										/>
+										<input
+											type='radio' 
+											id='optionTwo' 
+											name='optionTwo' 
+											value={optionTwo.text}
+											size='30'
+										/>
+										<button className='btn' onClick={this.handleQuestion}>Submit</button>
+									</form>	
+								</div>
+								<button className='btn' onClick={this.handleQuestion}></button>
+							</div>
+						</div>) : null
+				)}
 			</div>
 		)
 	}
@@ -72,14 +79,11 @@ class Question extends Component {
 function mapStateToProps({authedUser, users, questions}, {id}) {
 	const question = questions[id]
 	
-	console.log(`authedUser: ${authedUser}`)
-	
-	if (authedUser === null) {
-		authedUser = 'somename'
-	}
+	// console.log(`authedUser: ${authedUser}, question: ${question}`)
 	
 	return {
 		authedUser,
+		users,
 		question: question
 			? formatQuestion(question, authedUser)
 			: null

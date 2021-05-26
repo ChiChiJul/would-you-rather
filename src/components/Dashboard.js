@@ -16,12 +16,14 @@ class Dashboard extends Component {
 			
 						{/* //////// why neither one works */}
 						{Object.values(questions).map((question) => {
-							unansweredQuestionIds.map((id) =>  
-								question.id === id ? (<li key={id}>{question.author}</li>) : console.log('false') )
+							return unansweredQuestionIds.map((id) =>  
+								question.id === id 
+									? (<li key={id}><UserQuestion id={id} /></li>) 
+									: console.log('false') )
 						})}
 						
 						{Object.values(questions).map((question) => {
-							unansweredQuestionIds.map((id) => { 
+							return unansweredQuestionIds.map((id) => { 
 								if (question.id === id) {
 									(<li key={id}>{question.author}</li>)
 								}
@@ -37,6 +39,7 @@ class Dashboard extends Component {
 				<div>
 					<span>Answered Questions</span>
 					<ul className='dashboard-list'>
+						<Question />
 					</ul>
 				</div>
 			</div>
