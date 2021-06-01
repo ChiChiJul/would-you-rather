@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 // import { LoadingBar } from 'react-router-loading-bar'
 import Dashboard from './Dashboard' 
+import LeaderBoard from './LeaderBoard'
 import NewQuestion from './NewQuestion'
 import Login from './Login'
 import Question from './Question'
 import UserQuestion from './UserQuestion'
+//import Result from './Result'
 import Nav from './Nav'
 
 class App extends Component {
@@ -30,6 +32,9 @@ class App extends Component {
 						? <Route path='/login' component={Login} />
 							: <div>
 								<Route exact path='/' component={Dashboard} />
+								<Route exact path='/question/:id' render={(props) => <Question {...props} />} />
+								{/*<Route exact path='/question/:id' render={(props) => <Result {...props} />} />*/}
+								<Route exact path='/leader_board' component={LeaderBoard} />
 								<Route exact path='/new' component={NewQuestion} />	
 								<Route exact path='/login' component={Login} />
 							</div>

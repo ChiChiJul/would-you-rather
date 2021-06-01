@@ -3,8 +3,13 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { formatQuestion } from '../utils/helpers'
 import { handleQuestionToggle } from '../actions/questions'
+import { Redirect } from 'react-router-dom'
 
 class Question extends Component {
+	state = {
+		submitted: false
+	}
+	
 	handleQuestion = (e) => {
 		e.preventDefault() 
 		
@@ -17,10 +22,16 @@ class Question extends Component {
 			authedUser,
 			option: question.option
 		}))
+		
+		this.setState(() => ({
+			submitted: e ? true : false 
+		}))
 	}
 	
 	render() {
+		console.log('this.props: ', this.props)
 		const { authedUser, users, question } = this.props
+		console.log(`this.state.submitted: ${this.state.submitted}`)
 		
 		if (question === null) {
 			return <p>This Question does not exist</p>
@@ -31,6 +42,11 @@ class Question extends Component {
 		const { id, timestamp, optionOne, optionTwo } = question
 		
 		console.log(`optionOne: ${optionOne.text}`)
+		
+
+		{/*f (this.state.submitted === true) {
+			return <Redirect to='./Result' />
+		}*/}
 		
 		return (
 			<div>
@@ -66,7 +82,15 @@ class Question extends Component {
 										<button className='btn' onClick={this.handleQuestion}>Submit</button>
 									</form>	
 								</div>
-								<button className='btn' onClick={this.handleQuestion}></button>
+								<button className='btn' onClick={this.handleQuestion}>Submit</button>
+								{this.state.submitted 
+									? <Redirect 
+										to={{
+											pathname: '/question/id',
+											state: { id: id}
+										}} 
+										/> 
+									: null}
 							</div>
 						</div>) : null
 				)}
@@ -76,10 +100,15 @@ class Question extends Component {
 }
 
 // whats returned are args to Question component
-function mapStateToProps({authedUser, users, questions}, {id}) {
-	const question = questions[id]
+function mapStateToProps({authedUser, users, questions}, props) {
+	console.log('**** props **** ', props)
+
+	const { qid } = props.match.params
 	
-	// console.log(`authedUser: ${authedUser}, question: ${question}`)
+	const id = 'loxhs1bqm25b708cmbf3g'
+	const question = questions[id]
+	console.log('id: ', id)
+	console.log('question: ', question)
 	
 	return {
 		authedUser,

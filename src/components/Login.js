@@ -50,7 +50,7 @@ class Login extends Component {
 function mapStateToProps ({ authedUser, users, questions }) {
 		//console.log('authedUser: ', authedUser)
 		console.log('users: ', users)
-		//console.log('authedUser: ', authedUser)
+		console.log('authedUser: ', authedUser)
 	return {
 		authedUser,
 		users

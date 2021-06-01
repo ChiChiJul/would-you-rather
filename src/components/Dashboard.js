@@ -22,14 +22,6 @@ class Dashboard extends Component {
 									: console.log('false') )
 						})}
 						
-						{Object.values(questions).map((question) => {
-							return unansweredQuestionIds.map((id) => { 
-								if (question.id === id) {
-									(<li key={id}>{question.author}</li>)
-								}
-							})
-						})}
-						
 			
 						{/*{unansweredQuestionIds.map((id) => (<li key={id}>{id}</li>) )}*/}
 						{/*{true === true ? (<li>true</li>) : console.log('false')} */}

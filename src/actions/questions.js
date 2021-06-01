@@ -17,15 +17,12 @@ function addQuestion (question) {
 export function handleAddQuestion (question) {
 	return (dispatch, getState) => {
 		const { authedUser } = getState()
-		
-		// this should be done in reducer because there is where the state 
-		// gets changed?
-		// todo get Users, and find user who's the same as authedUser 
-		// and add question id to user[questions]
+		const { optionOneText, optionTwoText } = question
 		
 		// saveQuestion take the question and formats it before 
 		return saveQuestion({
-			question,
+			optionOneText,
+			optionTwoText,
 			author: authedUser
 		})
 			.then((question) => dispatch(addQuestion(question)))

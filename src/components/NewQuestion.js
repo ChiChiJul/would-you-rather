@@ -5,27 +5,25 @@ import { Redirect } from 'react-router-dom'
 
 class NewQuestion extends Component {
 	state = {
-		optionOne: '',
-		optionTwo: '',
+		optionOneText: '',
+		optionTwoText: '',
 		toHome: false,
 	}
 	
 	handleChange = (e) => {
 		switch(e.target.id) {
-			case 'optionOne' : 
-				let optionOne = ''
-				optionOne = e.target.value
-				this.setState(() => ({
-					optionOne
+			case 'optionOneText' : 
+				let optionOneText = ''
+				optionOneText = e.target.value
+				return this.setState(() => ({
+					optionOneText
 				}))
-				return optionOne
-			case 'optionTwo' :
-				let optionTwo = ''
-				optionTwo = e.target.value
-				this.setState(() => ({
-					optionTwo
+			case 'optionTwoText' :
+				let optionTwoText = ''
+				optionTwoText = e.target.value
+				return this.setState(() => ({
+					optionTwoText
 				}))
-				return optionTwo
 			default :
 				return this.state
 		}
@@ -34,20 +32,22 @@ class NewQuestion extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault()
 			
-		const { optionOne, optionTwo } = this.state
-		const { dispatch, id } = this.props
+		const { optionOneText, optionTwoText } = this.state
+		const { dispatch, authedUser } = this.props
 		
-		dispatch(handleAddQuestion( {optionOne, optionTwo, id} ))
+		dispatch(handleAddQuestion({ optionOneText, optionTwoText }))
 				
 		this.setState(() => ({
-			optionOne: '',
-			optionTwo: '',
-			toHome: id ? false : true
+			optionOneText: '',
+			optionTwoText: '',
+			toHome: authedUser ? false : true
 		}))
 	}
 	
 	render() {
-		const { optionOne, optionTwo, toHome } = this.state
+		const { optionOneText, optionTwoText, toHome } = this.state
+		
+		console.log('this.props: ', this.props)
 		
 		if (toHome === true) {
 			return <Redirect to='/' />
@@ -58,20 +58,20 @@ class NewQuestion extends Component {
 				<h3 className='center'>Create New Question</h3>
 				<p>Complete the question:</p>
 				<p>Would you rather...</p>
-				<form className='new-question' onSubmit={this.handSubmit}>
+				<form className='new-question' onSubmit={this.handleSubmit}>
 					<input
-						id='optionOne'
+						id='optionOneText'
 						placeholder='Enter Option One Text Here'
-						value={optionOne}
+						value={optionOneText}
 						onChange={this.handleChange}
 						className='input'
 						size={60}
 					/>
 					<div>OR</div>
 					<input
-						id='optionTwo'
+						id='optionTwoText'
 						placeholder='Enter Option Two Text Here'
-						value={optionTwo}
+						value={optionTwoText}
 						onChange={this.handleChange}
 						className='input'
 						size={60}
@@ -79,7 +79,7 @@ class NewQuestion extends Component {
 					<button
 						className='btn'
 						type='submit'
-						disabled={optionOne === '' || optionTwo === ''}>
+						disabled={optionOneText === '' || optionTwoText === ''}>
 							Submit
 					</button>
 				</form>
@@ -88,4 +88,10 @@ class NewQuestion extends Component {
 	}
 }
 
-export default connect()(NewQuestion)
+function mapStateToProps( {authedUser} ) {
+	return {
+		authedUser
+	}
+}
+
+export default connect(mapStateToProps)(NewQuestion)

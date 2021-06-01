@@ -10,18 +10,32 @@ class UserQuestion extends Component {
 	
 	handleOnClick = (e) => {
 		e.preventDefault()
+		alert('View Poll clicked')
+		console.log('e.target: ', e.target)
+		
 		
 		this.setState(() => ({
 			showPoll: true
 		}))
 	}
 	
+	toQuestion = (e, id) => {
+		e.preventDefault()
+		console.log(`id: ${id}`)
+		//this.props.question.push(`question/${id}`)
+	}
+	
 	render() {
 		const { id, questions, users } = this.props
+		const question = questions[id]
+		console.log('this.state.showPoll: ', this.state.showPoll)
+		
+		console.log('this.props: ', this.props)
+		
 		//const { id, name, avatarURL, optionOne } = question
 		
-		/*console.log(id)
-		console.log('questions: ', questions)
+		console.log('id: ', id)
+		/*console.log('questions: ', questions)
 		console.log('users: ', users)
 		console.log('user name: ', users[questions[id].author].name)*/
 		
@@ -47,8 +61,21 @@ class UserQuestion extends Component {
 											<p>Would you rather</p>
 											<p>{question.optionOne.text}</p>
 										</span>
-										<button onClick={this.handleOnClick}>View Poll</button>
-												{this.state.showPoll && <Question id={id} />}
+										{id && (
+											<button
+												className='btn'
+											onClick={(e) => {
+												console.log('id: ', id)
+												return this.handleOnClick(e)
+											} }>
+											<Link to={`question/${id}`} className='question'>
+												View Poll
+											</Link>
+											</button>
+										)}
+												<div>
+													{this.state.showPoll && <Question id={id} />}
+												</div>
 									</div>
 								</li>) : null
 						) : null
