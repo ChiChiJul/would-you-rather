@@ -2,7 +2,7 @@ import { saveQuestionAnswer, saveQuestion } from '../utils/api'
 //import { showLoading, hideLoading } from 'react-redux-laoding'
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
-export const TOGGLE_QUESTION = 'TOGGLE_QUESTION'
+export const RECEIVE_QUESTION_ANSWER = 'RECEIVE_QUESTION_ANSWER'
 export const ADD_QUESTION = 'ADD_QUESTION'
 
 // action creator
@@ -36,9 +36,9 @@ export function receiveQuestions (questions) {
 	}
 }
 
-function toggleQuestion ({id, authedUser, option}) {
+function receiveQuestionAnswer ({id, authedUser, option}) {
 	return {
-		type: TOGGLE_QUESTION,	
+		type: RECEIVE_QUESTION_ANSWER,	
 		id,
 		authedUser,
 		option
@@ -46,14 +46,14 @@ function toggleQuestion ({id, authedUser, option}) {
 }
 
 // info has qid, authedUser, option/answer
-export function handleQuestionToggle (info) {
+export function handleQuestionAnswer (info) {
 	return (dispatch) => {
-		dispatch(toggleQuestion(info))
+		dispatch(receiveQuestionAnswer(info))
 		
 		return saveQuestionAnswer(info)
 			.catch((e) => {
 				console.warn('Error in handleQuestionToggle: ', e)
-				dispatch(toggleQuestion(info))
+				dispatch(receiveQuestionAnswer(info))
 				alert('There was an error answing the question. Try again.')
 			})
 	}

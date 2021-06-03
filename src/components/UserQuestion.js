@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Question from './Question'
+import { Redirect } from 'react-router-dom'
 
 class UserQuestion extends Component {
 	state = {
@@ -10,10 +11,7 @@ class UserQuestion extends Component {
 	
 	handleOnClick = (e) => {
 		e.preventDefault()
-		alert('View Poll clicked')
-		console.log('e.target: ', e.target)
-		
-		
+
 		this.setState(() => ({
 			showPoll: true
 		}))
@@ -28,13 +26,13 @@ class UserQuestion extends Component {
 	render() {
 		const { id, questions, users } = this.props
 		const question = questions[id]
-		console.log('this.state.showPoll: ', this.state.showPoll)
+		//console.log('this.state.showPoll: ', this.state.showPoll)
 		
-		console.log('this.props: ', this.props)
+		//console.log('this.props: ', this.props)
 		
 		//const { id, name, avatarURL, optionOne } = question
 		
-		console.log('id: ', id)
+		//console.log('id: ', id)
 		/*console.log('questions: ', questions)
 		console.log('users: ', users)
 		console.log('user name: ', users[questions[id].author].name)*/
@@ -64,38 +62,30 @@ class UserQuestion extends Component {
 										{id && (
 											<button
 												className='btn'
-											onClick={(e) => {
-												console.log('id: ', id)
-												return this.handleOnClick(e)
-											} }>
-											<Link to={`question/${id}`} className='question'>
+												onClick={(e) => 
+													this.handleOnClick(e) 
+												}>
 												View Poll
-											</Link>
 											</button>
 										)}
-												<div>
-													{this.state.showPoll && <Question id={id} />}
-												</div>
+										<div>
+											{this.state.showPoll 
+												? (
+													<div>
+													<Redirect
+														to={{
+															pathname: 'question/:id',
+															state: { id: id }
+														}}
+													/> 
+													</div>
+												) : null}
+										</div>
 									</div>
 								</li>) : null
 						) : null
 					)}
 				</ul>
-			
-			
-			
-				{/*<div>{name}</div>
-				<div>
-				<img 
-					src={avatarURL}
-					alt={'Avatar of ${name}'}
-					className='avatar'
-				/>
-					
-				<h5>Would you rather</h5>
-					<p>{optionOne.text}</p>
-					<button>View Poll</button>
-				</div> */}
 			</div>
 		)
 	}

@@ -13,25 +13,18 @@ class Dashboard extends Component {
 				<div>
 					<span>Unanswered Questions</span>
 					<ul className='dashboard-list'>
-			
-						{/* //////// why neither one works */}
 						{Object.values(questions).map((question) => {
 							return unansweredQuestionIds.map((id) =>  
 								question.id === id 
 									? (<li key={id}><UserQuestion id={id} /></li>) 
 									: console.log('false') )
 						})}
-						
-			
-						{/*{unansweredQuestionIds.map((id) => (<li key={id}>{id}</li>) )}*/}
-						{/*{true === true ? (<li>true</li>) : console.log('false')} */}
-
 					</ul>
 				</div>
 				<div>
 					<span>Answered Questions</span>
 					<ul className='dashboard-list'>
-						<Question />
+					{/*<Question />*/}
 					</ul>
 				</div>
 			</div>

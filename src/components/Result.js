@@ -7,12 +7,12 @@ class Result extends Component {
 	}
 	
 	render() {
-		const { qid, name, question, optOneVotes, optTwoVotes, totalVotes, optOneVotePercent, optTwoVotePercent } = this.props
+		//const { qid, name, question, optOneVotes, optTwoVotes, totalVotes, optOneVotePercent, optTwoVotePercent } = this.props
 		
 		return (
 			<div>
 				
-				<div>Asked by {name}</div>
+				{/*<div>Asked by {name}</div>
 				<div>
 					
 				</div>
@@ -31,30 +31,37 @@ class Result extends Component {
 						</span>
 						</div>
 					</div>
-				</div>
+				</div>*/}
 			</div>
 		)
 	}
 }
 
-function mapStateToProps({ users, questions }, { qid }) {
-	const question = questions[qid]
-	const name = users[questions[qid].author].name
-	const optOneVotes = question.optionOne.votes.length
+function mapStateToProps({ users, questions }, props) {
+	console.log('props: ', props)
+	
+	/*const id = this.props.location.state.id
+	
+	const question = questions[id]
+	const name = users[questions[id].author].name*/
+	
+	/*const optOneVotes = question.optionOne.votes.length
 	const optTwoVotes = question.optionTwo.votes.length
 	const totalVotes = optOneVotes + optTwoVotes
 	const optOneVotePercent = optOneVotes/totalVotes
-	const optTwoVotePercent = optTwoVotes/totalVotes
+	const optTwoVotePercent = optTwoVotes/totalVotes*/
 	
 	return {
-		qid,
+		users,
+		questions
+		/*id,
 		name,
 		optOneVotes,
 		optTwoVotes,
 		totalVotes,
 		question,
 		optOneVotePercent,
-		optTwoVotePercent
+		optTwoVotePercent*/
 	}
 }
 
