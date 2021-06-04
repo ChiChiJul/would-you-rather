@@ -26,17 +26,18 @@ class Question extends Component {
 		console.log('e.target.value: ', e.target.value)
 		
 		this.setState(() => ({
-			option: e.target.value
+			option: e.target.id
 		}))
 	}
 	
 	handleQuestion = (e) => {
 		e.preventDefault() 
 		
-		//console.log(this.props)
+		console.log(this.props)
 		console.log('e.target.value: ', e.target.value)
 		console.log('e: ', e)
 		const { dispatch, question, authedUser } = this.props
+		const { id } = question.id
 		
 		//console.log('authedUser: ', authedUser)
 		console.log('question: ', question)
@@ -47,9 +48,7 @@ class Question extends Component {
 			option: this.state.option
 		}))
 		
-		this.setState(() => ({
-			submitted: e ? true : false 
-		}))
+		this.props.history.push(`result/${id}`)
 	}
 	
 	render() {
@@ -97,6 +96,7 @@ class Question extends Component {
 								{id && (
 								<button 
 									className='btn' 
+									disabled={this.state.option === ''}
 									onClick={(e) => 
 										this.handleQuestion(e)
 									}>

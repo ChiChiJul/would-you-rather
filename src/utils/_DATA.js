@@ -172,6 +172,9 @@ export function _saveQuestion (question) {
 }
 
 export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+	console.log('authedUser: ', authedUser) // johndoe
+	console.log('qid: ', qid)  // undefined
+	console.log('answer: ', answer) // undefined
   return new Promise((res, rej) => {
     setTimeout(() => {
       users = {

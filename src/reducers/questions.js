@@ -8,15 +8,16 @@ export default function questions (state = {}, action) {
 				...action.questions
 			}
 		case RECEIVE_QUESTION_ANSWER :
-			/*console.log('action: ', action) // action type: toggle_question, id: qid, authedUser, option
+			console.log('action: ', action) // action type: toggle_question, id: qid, authedUser, option
 			console.log('action.authedUser: ', action.authedUser)
-			console.log('state: ', state) // questions
+			console.log('action.option: ', action.option)
+			console.log('action.id: ', action.id)
+			/*console.log('state: ', state) // questions
 			console.log('[action.authedUser]: ', [action.authedUser])
 			console.log('action.authedUser: ', action.authedUser)
 			console.log('[action.id]: ', [action.id])
-			console.log('action.id: ', action.id)
 			console.log('[action.option]: ', [action.option])
-			console.log('action.option: ', action.option)*/
+			*/
 			
 			return {
 				...state, 

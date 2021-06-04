@@ -20,5 +20,8 @@ export function saveQuestion (info) {
 }
 
 export function saveQuestionAnswer (info) {
+	console.log('inside api saveQuestionAnswer -- info: ', info)
+	//console.log('qid: ', qid)
+	//console.log('answer: ', answer)
 	return _saveQuestionAnswer(info)
 }

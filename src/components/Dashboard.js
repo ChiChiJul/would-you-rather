@@ -24,7 +24,12 @@ class Dashboard extends Component {
 				<div>
 					<span>Answered Questions</span>
 					<ul className='dashboard-list'>
-					{/*<Question />*/}
+						{Object.values(questions).map((question) => 
+							answeredQuestionIds.map((id) =>
+								question.id === id
+									? (<li key={id}><UserQuestion id={id} /></li>)
+									: console.log('no match'))
+						)}
 					</ul>
 				</div>
 			</div>
