@@ -36,12 +36,12 @@ export function receiveQuestions (questions) {
 	}
 }
 
-function receiveQuestionAnswer ({id, authedUser, option}) {
+function receiveQuestionAnswer ({qid, authedUser, answer}) {
 	return {
 		type: RECEIVE_QUESTION_ANSWER,	
-		id,
+		qid,
 		authedUser,
-		option
+		answer
 	}
 }
 

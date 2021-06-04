@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class Result extends Component {
+class QuestionResult extends Component {
 	componentDidMount(props) {
-		console.log('id: ', this.props.location.state.id)
+		console.log('QuestionResult Component Did Mount')
+		console.log('qid: ', this.props.match.params.id)
+	}
+	
+	componentWillUnmount() {
+		console.log('QuestionResult Component Will Unmount')
 	}
 	
 	render() {
@@ -40,9 +45,9 @@ class Result extends Component {
 function mapStateToProps({ users, questions }, props) {
 	console.log('props: ', props)
 	
-	/*const id = this.props.location.state.id
+	const qid = this.props.match.params.id
 	
-	const question = questions[id]
+	/*const question = questions[id]
 	const name = users[questions[id].author].name*/
 	
 	/*const optOneVotes = question.optionOne.votes.length
@@ -65,4 +70,4 @@ function mapStateToProps({ users, questions }, props) {
 	}
 }
 
-export default connect(mapStateToProps)(Result)
+export default connect(mapStateToProps)(QuestionResult)

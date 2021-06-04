@@ -27,6 +27,19 @@ class Login extends Component {
 		const { users } = this.props
 		console.log('toHome: ', this.state)
 		const { toHome } = this.state
+		console.log('Object.values(users): ', Object.values(users))
+		
+		const userArr = Object.values(users)
+		console.log('first user: ', Object.values(users)[0])
+		
+		const firstUser = Object.values(users)[0]
+		console.log('first user: ', firstUser)
+		//console.log('first user name: ', firstUser.name)
+		
+		//const firstUserName = firstUser.name
+		//console.log('first user name: ', firstUserName)
+		
+		//const { firstUserName } = firstUser
 		
 		if (toHome === true) {
 			return <Redirect to='/' />
@@ -36,6 +49,7 @@ class Login extends Component {
 				<h3 className='welcome'>Welcome to the Would You Rather App!</h3>
 				<label className='login'>Sign in</label>
 				<select name='users' id='users' onChange={this.handleOnChange}>
+						{/*<option disabled selected value>firstUserName</option>*/}
 					{Object.values(users).map(user => (
 						<option key={user.id} value={user.id}>{user.name}</option>
 					))}

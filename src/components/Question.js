@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { formatQuestion } from '../utils/helpers'
 import { handleQuestionAnswer } from '../actions/questions'
 import { Redirect } from 'react-router-dom'
+import QuestionResult from './QuestionResult'
+import { withRouter } from 'react-router-dom'
 
 class Question extends Component {
 	state = {
@@ -13,18 +15,14 @@ class Question extends Component {
 	
 	componentDidMount() {
 		console.log('Question Component did mount')
-		console.log('this.props.user.name: ', this.props.user.name)
 	}
 	
 	componentWillUnmount() {
 		console.log('Will unmount Question Component')
-		console.log('this.props.user.name: ', this.props.user.name)
 	}
 
 	
 	handleOnChange = (e) => {
-		console.log('e.target.value: ', e.target.value)
-		
 		this.setState(() => ({
 			option: e.target.id
 		}))
@@ -33,37 +31,27 @@ class Question extends Component {
 	handleQuestion = (e) => {
 		e.preventDefault() 
 		
-		console.log(this.props)
-		console.log('e.target.value: ', e.target.value)
-		console.log('e: ', e)
 		const { dispatch, question, authedUser } = this.props
-		const { id } = question.id
-		
-		//console.log('authedUser: ', authedUser)
-		console.log('question: ', question)
+		const qid = question.id
 		
 		dispatch(handleQuestionAnswer({
-			id: question.id,
+			qid: question.id,
 			authedUser,
-			option: this.state.option
+			answer: this.state.option
 		}))
 		
-		this.props.history.push(`result/${id}`)
+		// redirect
+		this.props.history.push(`/question_result/${qid}`)
 	}
 	
 	render() {
 		const { authedUser, user, question } = this.props
-		const { id, timestamp, optionOne, optionTwo } = question
-
-		console.log(`this.state.submitted: ${this.state.submitted}`)		
-		console.log('this.props: ', this.props)
+		const { qid, timestamp, optionOne, optionTwo } = question
 		
 		if (question === null) {
 			return <p>This Question does not exist</p>
 		}
-		
-		console.log('question: ', question)
-		
+
 		return (
 			<div>
 				<div>
@@ -93,35 +81,20 @@ class Question extends Component {
 									value={optionTwo.text}
 									onChange={this.handleOnChange}
 								/>{optionTwo.text}
-								{id && (
 								<button 
-									className='btn' 
-									disabled={this.state.option === ''}
-									onClick={(e) => 
-										this.handleQuestion(e)
-									}>
-									Submit
+										className='btn' 
+										disabled={this.state.option === ''}
+										onClick={(e) => 
+											this.handleQuestion(e)
+										}>
+										{/*<Link 
+										to={'question_result/${qid}'} 
+										className='question_answer'
+										>*/}
+										Submit
+										{/*</Link>*/}
 								</button>
-								)}
 							</form>	
-						</div>
-						<div>
-								{this.state.submitted 
-									? console.log(`this.state.submitted is true: ${this.state.submitted === true}`)
-									: console.log('not true')}
-						</div>
-						<div>
-							{this.state.submitted 
-								? (
-									<div>
-										<Redirect 
-											to={{
-												pathname: 'result/:id',
-												state: { id: id}
-											}} 
-										/>
-									</div>
-								) : null}
 						</div>
 					</div>
 				</div>
@@ -132,15 +105,9 @@ class Question extends Component {
 
 // whats returned are args to Question component
 function mapStateToProps({ authedUser, users, questions }, props ) {
-	
-	console.log('props: ', props)
-	
 	const qid = props.location.state.id
 	const question = questions[qid]
 	const user = users[question.author]
-	
-	console.log('question: ', question)
-	console.log('user: ', user)
 
 	return {
 		authedUser,
@@ -151,4 +118,4 @@ function mapStateToProps({ authedUser, users, questions }, props ) {
 	}
 }
 
-export default connect(mapStateToProps)(Question)
+export default withRouter(connect(mapStateToProps)(Question))

@@ -9,7 +9,7 @@ import NewQuestion from './NewQuestion'
 import Login from './Login'
 import Question from './Question'
 import UserQuestion from './UserQuestion'
-import Result from './Result'
+import QuestionResult from './QuestionResult'
 import Nav from './Nav'
 
 class App extends Component {
@@ -30,16 +30,16 @@ class App extends Component {
 					<Nav />
 					{this.props.authedUser === null ? (
 						<div>
-							<Route key='login' path='/login' component={Login} />
+							<Route exact key='login' path='/login' component={Login} />
 						</div>
 					) : (
 						<div>
 							<Route exact path='/' component={Dashboard} />
 							<Route exact path='/question/:id' render={(props) => <Question {...props} />} />
-							<Route exact path='/result/:id' render={(props) => <Result {...props} />} />
+							<Route exact path='/question_result/:id' render={(props) => <QuestionResult {...props} />} />
 							<Route exact path='/leader_board' component={LeaderBoard} />
 							<Route exact path='/new' component={NewQuestion} />	
-							<Route key='login' exact path='/login' component={Login} />
+							<Route exact key='login' path='/login' component={Login} />
 						</div>
 					)}
 				</Fragment>
