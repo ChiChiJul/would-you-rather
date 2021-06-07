@@ -46,6 +46,7 @@ function mapStateToProps({ authedUser, questions, users }) {
 	console.log(`number of questions: ${Object.keys(questions).length}`)
 	console.log(`authedUser: ${authedUser}`)
 	Object.values(questions).map((value => {
+		console.log('value: ', value)
 		if (value.optionOne.votes.includes(authedUser)
 			|| value.optionTwo.votes.includes(authedUser)) {
 				answeredQuestionIds.push(value.id)

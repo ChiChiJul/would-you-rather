@@ -45,10 +45,15 @@ class QuestionResult extends Component {
 function mapStateToProps({ users, questions }, props) {
 	console.log('props: ', props)
 	
-	const qid = this.props.match.params.id
+	const qid = props.match.params.id
 	
-	/*const question = questions[id]
-	const name = users[questions[id].author].name*/
+	const question = questions[qid]
+	
+	//const name = users[questions[qid].author].name
+	console.log('questions: ', questions)
+	console.log('question: ', question)
+	console.log('users: ', users)
+	//console.log('name: ', name)
 	
 	/*const optOneVotes = question.optionOne.votes.length
 	const optTwoVotes = question.optionTwo.votes.length

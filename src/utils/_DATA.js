@@ -147,10 +147,17 @@ function formatQuestion ({ optionOneText, optionTwoText, author }) {
   }
 }
 
+// updates state
+// for questions, the newly created question is added 
+// for the user (authedUser), question id is add to user's questions
+// ************however, only the questions is updated ?????????
 export function _saveQuestion (question) {
   return new Promise((res, rej) => {
     const authedUser = question.author;
     const formattedQuestion = formatQuestion(question);
+	
+	console.log('question: ', question)
+	console.log('authedUser: ', authedUser)
 
     setTimeout(() => {
       questions = {
@@ -171,7 +178,12 @@ export function _saveQuestion (question) {
   })
 }
 
+// update state 
+// for the user (authedUser) who answered the question, by updating user's answers
+// for the question being answered, by updating the question's option votes
+// **************** neither is updated ???????????????????????
 export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+	console.log(`authedUser: ${authedUser}, qid: ${qid}, answer: ${answer}`)
   return new Promise((res, rej) => {
     setTimeout(() => {
       users = {
@@ -185,6 +197,7 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
         }
       }
 
+	  // it appears that the qid object is replaced by the qid value
       questions = {
         ...questions,
         [qid]: {
@@ -196,7 +209,9 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
         }
       }
 
-      res()
+      res('sucess')
+	  
+	  rej(err => console.log(err))
     }, 500)
   })
 }
