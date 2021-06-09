@@ -6,38 +6,67 @@ import UserQuestion from './UserQuestion'
 class Dashboard extends Component {
 	state = {
 		haveNotAnswered: false,
-		haveAnswered: true
+		haveAnswered: true,
+		showUnansweredQuestions: true,
+		showAnsweredQuestions: false
+	}
+	
+	handleOnClick = (e) => {
+		e.preventDefault()
+		if (e.target.id === 'answered' && this.state.showUnansweredQuestions === true) {
+			this.setState(() => ({
+				showAnsweredQuestions: true,
+				showUnansweredQuestions: false
+			}))
+		}
+		if (e.target.id === 'unanswered' && this.state.showAnsweredQuestions === true) {
+			this.setState(() => ({
+				showUnansweredQuestions: true,
+				showAnsweredQuestions: false
+			}))
+		}
 	}
 	
 	render() {
 		console.log(this.props)
 		const { questions, answeredQuestionIds, unansweredQuestionIds } = this.props
-		
+		const { haveNotAnswered, haveAnswered, showUnansweredQuestions, 
+			showAnsweredQuestions } = this.state
 		console.log('state: ', this.state)
+		console.log(`showUnansweredQuestions: ${showUnansweredQuestions},
+			showAnsweredQuestions: ${showAnsweredQuestions}`)
 		
 		return (
 			<div className='container'>
-				<div>
-					<span>Unanswered Questions</span>
-					<ul className='dashboard-list'>
-						{Object.values(questions).map((question) => {
-							return unansweredQuestionIds.map((qid) =>  
-								question.id === qid 
-									? (<li key={qid}><UserQuestion qid={qid} answered={this.state.haveNotAnswered} /></li>) 
-									: console.log('false') )
-						})}
-					</ul>
+				<div className='dashboard'>
+					<button id='unanswered' onClick={this.handleOnClick}>Unanswered Questions</button>
+					<button id='answered' onClick={this.handleOnClick}>Answered Questions</button>
+					<div className='unanswered'>
+						{showUnansweredQuestions && (
+							<ul className='dashboard-list'>
+							{Object.values(questions).map((question) => {
+								return unansweredQuestionIds.map((qid) =>  
+									question.id === qid 
+										? (<li key={qid}><UserQuestion qid={qid} answered={haveNotAnswered} /></li>) 
+										: console.log('false') )
+							})}
+						</ul>
+						)}
+					</div>
+					<div className="answered">
+						{showAnsweredQuestions && (
+							<ul className='dashboard-list'>
+								{Object.values(questions).map((question) => 
+									answeredQuestionIds.map((qid) =>
+										question.id === qid
+											? (<li key={qid}><UserQuestion qid={qid} answered={haveAnswered} /></li>)
+											: console.log('no match'))
+								)}
+							</ul>
+						)}
+					</div> 
 				</div>
 				<div>
-					<span>Answered Questions</span>
-					<ul className='dashboard-list'>
-						{Object.values(questions).map((question) => 
-							answeredQuestionIds.map((qid) =>
-								question.id === qid
-									? (<li key={qid}><UserQuestion qid={qid} answered={this.state.haveAnswered} /></li>)
-									: console.log('no match'))
-						)}
-					</ul>
 				</div>
 			</div>
 		)

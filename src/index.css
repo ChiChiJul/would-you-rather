@@ -59,6 +59,7 @@ a {
   flex-direction: row;
   justify-content: flex-start;
   text-decoration: none;
+  margin-left: 25%;
 }
 
 .nav li:first-child {
@@ -79,4 +80,23 @@ li {
   height: 50px;
   border-radius: 25px;
   margin: 10px;
+}
+
+/* dashboard page */
+.dashboard {
+	margin: auto;
+	width: 320px;
+}
+
+.unanswered, answered {
+	width: 300px;
+}
+
+/* login page */
+.login {
+	width: 400px;
+	padding: 20px;
+	border: red 1px solid;
+	text-align: center;
+	margin: auto;
 }

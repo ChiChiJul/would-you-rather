@@ -61,7 +61,7 @@ class Nav extends Component {
 						</NavLink>
 					</li>
 					<li>
-						{/*{authedUser !== null ? */}
+						{authedUser !== null ?
 							<NavLink 
 								to={{
 									pathname: '/login'
@@ -79,7 +79,7 @@ class Nav extends Component {
 								</span>*/}
 								{authedUser !== null ? 'Logout' : this.state.login}
 							</NavLink>
-						{/*: null} */}
+						: null}
 					</li>
 				</ul>
 			</nav>

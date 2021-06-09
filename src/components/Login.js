@@ -2,25 +2,40 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setAuthedUser } from '../actions/authedUser'
 import { Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 class Login extends Component {
 	state = {
 		toHome: false,
+		loginUser: ''
 	}
 	
 	// first time loggin in doesn't setState toHome to true? Why?
 	handleOnChange = (e) => {
+		e.preventDefault()
 		console.log(this.props)
 		const { dispatch, authedUser, users } = this.props
-		dispatch(setAuthedUser(e.target.value))
 		console.log(`toHome: ${this.state.toHome}`)
 		console.log(`authedUser: ${authedUser}`)
 		console.log(`e.target.value: ${e.target.value}`)
+		console.log(`toHome: ${this.state.toHome}`)
+		//this.props.handleOnClick()
+		this.setState(() => ({
+			loginUser: e.target.value
+		}))
+	}
+	
+	handleOnClick = (e) => {
+		e.preventDefault()
+		const { dispatch, authedUser, users } = this.props
+		console.log('e.target.value: ', e.target.value)
+		if (this.state.loginUser !== null) {
+			dispatch(setAuthedUser(this.state.loginUser))
+		}
 		this.setState(()=> ({
 			toHome: e.target.value ? true : false,
 		}))
-		console.log(`toHome: ${this.state.toHome}`)
-		//this.props.handleOnClick()
+		this.props.history.push('/')
 	}
 	
 	render () {
@@ -42,26 +57,34 @@ class Login extends Component {
 		
 		//const { firstUserName } = firstUser
 		
-		if (toHome === true) {
+		/*if (toHome === true) {
 			return <Redirect to='/' />
-		}
+		}*/
 		return (
-			<div>
+			<div className='login'>
 				<h3 className='welcome'>Welcome to the Would You Rather App!</h3>
-				<label className='login'>Sign in</label>
-				{firstUser !== undefined
-					? <select 
-						name='users' 
-						id='users' 
-						defaultValue={this.props.default} 
-						onChange={this.handleOnChange}
-					>
-						<option disabled>{firstUser.name}</option>
-							{Object.values(users).map(user => (
-								<option key={user.id} value={user.id}>{user.name}</option>
-							))}
-					</select>
-					: null}
+				<p>Please sign in to continue</p>
+				<div>
+					{firstUser !== undefined
+						? <select 
+							name='users' 
+							id='users' 
+							defaultValue={this.props.default} 
+							onChange={this.handleOnChange}
+						>
+							<option disabled>{firstUser.name}</option>
+								{Object.values(users).map(user => (
+									<option key={user.id} value={user.id}>{user.name}</option>
+								))}
+						</select>
+						: null}
+				</div>
+						<button 
+							className='btn' 
+							type='submit' 
+							onClick={this.handleOnClick}>
+								Sign In
+						</button>
 			</div>
 		)
 	}
@@ -80,4 +103,4 @@ function mapStateToProps ({ authedUser, users, questions }, props) {
 	}
 }
 
-export default connect(mapStateToProps)(Login)
+export default withRouter(connect(mapStateToProps)(Login))
