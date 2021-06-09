@@ -26,10 +26,20 @@ class App extends Component {
 				<Fragment>
 					{/*<LoadingBar />*/}
 					<Nav />
-				{/*<Route exact key='login' path='/login' component={Login} />*/}
+					
+					{/* all the Routes other than to Dashboard component stopped working */}
+					<div>
+						<Route exact path='/' component={Dashboard} />
+						<Route exact path='/question/:id' render={(props) => <Question {...props} />} />
+						<Route exact path='/question_result/:id' render={(props) => <QuestionResult {...props} />} />
+						<Route exact path='/leader_board' component={LeaderBoard} />
+						<Route exact path='/new' component={NewQuestion} />	
+						<Route exact key='login' path='/login' component={Login} />
+					</div>
+					
+					
 					{this.props.authedUser === null ? (
 						<div>
-						<p>Hello from App</p>
 							<Route exact key='login' path='/login' component={Login} />
 						</div>
 					) : (
