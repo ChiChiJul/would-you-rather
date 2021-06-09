@@ -4,9 +4,16 @@ import Question from './Question'
 import UserQuestion from './UserQuestion'
 
 class Dashboard extends Component {
+	state = {
+		haveNotAnswered: false,
+		haveAnswered: true
+	}
+	
 	render() {
 		console.log(this.props)
 		const { questions, answeredQuestionIds, unansweredQuestionIds } = this.props
+		
+		console.log('state: ', this.state)
 		
 		return (
 			<div className='container'>
@@ -14,9 +21,9 @@ class Dashboard extends Component {
 					<span>Unanswered Questions</span>
 					<ul className='dashboard-list'>
 						{Object.values(questions).map((question) => {
-							return unansweredQuestionIds.map((id) =>  
-								question.id === id 
-									? (<li key={id}><UserQuestion id={id} /></li>) 
+							return unansweredQuestionIds.map((qid) =>  
+								question.id === qid 
+									? (<li key={qid}><UserQuestion qid={qid} answered={this.state.haveNotAnswered} /></li>) 
 									: console.log('false') )
 						})}
 					</ul>
@@ -25,9 +32,9 @@ class Dashboard extends Component {
 					<span>Answered Questions</span>
 					<ul className='dashboard-list'>
 						{Object.values(questions).map((question) => 
-							answeredQuestionIds.map((id) =>
-								question.id === id
-									? (<li key={id}><UserQuestion id={id} /></li>)
+							answeredQuestionIds.map((qid) =>
+								question.id === qid
+									? (<li key={qid}><UserQuestion qid={qid} answered={this.state.haveAnswered} /></li>)
 									: console.log('no match'))
 						)}
 					</ul>
@@ -46,7 +53,6 @@ function mapStateToProps({ authedUser, questions, users }) {
 	console.log(`number of questions: ${Object.keys(questions).length}`)
 	console.log(`authedUser: ${authedUser}`)
 	Object.values(questions).map((value => {
-		console.log('value: ', value)
 		if (value.optionOne.votes.includes(authedUser)
 			|| value.optionTwo.votes.includes(authedUser)) {
 				answeredQuestionIds.push(value.id)

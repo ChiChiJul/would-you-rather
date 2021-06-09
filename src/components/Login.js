@@ -20,6 +20,7 @@ class Login extends Component {
 			toHome: e.target.value ? true : false,
 		}))
 		console.log(`toHome: ${this.state.toHome}`)
+		//this.props.handleOnClick()
 	}
 	
 	render () {
@@ -48,12 +49,19 @@ class Login extends Component {
 			<div>
 				<h3 className='welcome'>Welcome to the Would You Rather App!</h3>
 				<label className='login'>Sign in</label>
-				<select name='users' id='users' onChange={this.handleOnChange}>
-						{/*<option disabled selected value>firstUserName</option>*/}
-					{Object.values(users).map(user => (
-						<option key={user.id} value={user.id}>{user.name}</option>
-					))}
-				</select>
+				{firstUser !== undefined
+					? <select 
+						name='users' 
+						id='users' 
+						defaultValue={this.props.default} 
+						onChange={this.handleOnChange}
+					>
+						<option disabled>{firstUser.name}</option>
+							{Object.values(users).map(user => (
+								<option key={user.id} value={user.id}>{user.name}</option>
+							))}
+					</select>
+					: null}
 			</div>
 		)
 	}
@@ -61,10 +69,11 @@ class Login extends Component {
 
 //////////////////// ?????????????? //////////////////////////////////////
 // why the function takes only one arg, otherwise redux state value error?
-function mapStateToProps ({ authedUser, users, questions }) {
+function mapStateToProps ({ authedUser, users, questions }, props) {
 		//console.log('authedUser: ', authedUser)
 		console.log('users: ', users)
 		console.log('authedUser: ', authedUser)
+		console.log('props: ', props) //history object
 	return {
 		authedUser,
 		users

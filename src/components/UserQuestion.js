@@ -7,28 +7,33 @@ import { Redirect } from 'react-router-dom'
 class UserQuestion extends Component {
 	state = {
 		showPoll: false,
+		toPath: ''
 	}
 	
 	handleOnClick = (e) => {
+		const { qid, answered } = this.props
 		e.preventDefault()
 
 		this.setState(() => ({
-			showPoll: true
+			showPoll: true,
+			toPath: answered ? 'question_result' : 'question'
 		}))
 	}
 	
-	toQuestion = (e, id) => {
+	/*toQuestion = (e, id) => {
 		e.preventDefault()
 		console.log(`id: ${id}`)
 		//this.props.question.push(`question/${id}`)
-	}
+	}*/
 	
 	render() {
-		const { id, questions, users } = this.props
-		const question = questions[id]
+		const { qid, answered, questions, users } = this.props
+		const question = questions[qid]
 		//console.log('this.state.showPoll: ', this.state.showPoll)
 		
 		//console.log('this.props: ', this.props)
+		
+		//console.log('answered: ', answered)
 		
 		//const { id, name, avatarURL, optionOne } = question
 		
@@ -40,9 +45,70 @@ class UserQuestion extends Component {
 		
 		return (
 			<div>
+			{/*<ul>
+			{Object.values(questions).map((question) =>
+				question.id === qid
+				? Object.values(users).map((user) =>
+					user.id === question.author 
+						? (<li key={user.id}>
+							<div>{user.name} asks:</div>
+							<div>
+								<span>
+									<img 
+										src={user.avatarURL}
+										alt={'Avatar of ${user.name}'}
+										className='avatar'
+									/>
+								</span>
+								<span>
+									<p>Would you rather</p>
+									<p>{question.optionOne.text}</p>
+								</span>
+								{qid && (
+									<button
+										className='btn'
+										onClick={(e) => 
+											this.handleOnClick(e) 
+										}>
+										View Poll
+									</button>
+								)}
+								<div>
+									{(this.state.showPoll && answered === 'unanswered')
+										? (
+											<div>
+												<Redirect
+													to={{
+														pathname: 'question/:qid',
+														state: { id: qid }
+													}}
+												/> 
+											</div>
+										) 
+										: (
+											<div>
+												<Redirect
+													to={{
+														pathname: 'question_result/:qid',
+														state: { id: qid }
+													}}
+												/>
+											</div>
+										) 
+									}
+								</div>
+							</div>
+						</li>) : null
+				) : null
+			)}
+		</ul>*/}
+			
+			
+			
+			
 				<ul>
 					{Object.values(questions).map((question) =>
-						question.id === id
+						question.id === qid
 						? Object.values(users).map((user) =>
 							user.id === question.author 
 								? (<li key={user.id}>
@@ -59,7 +125,7 @@ class UserQuestion extends Component {
 											<p>Would you rather</p>
 											<p>{question.optionOne.text}</p>
 										</span>
-										{id && (
+										{qid && (
 											<button
 												className='btn'
 												onClick={(e) => 
@@ -69,17 +135,19 @@ class UserQuestion extends Component {
 											</button>
 										)}
 										<div>
-											{this.state.showPoll 
+											{this.state.showPoll
 												? (
 													<div>
-													<Redirect
-														to={{
-															pathname: 'question/:id',
-															state: { id: id }
-														}}
-													/> 
+														<Redirect
+															to={{
+																pathname: `${this.state.toPath}/${qid}`,
+																state: { id: qid }
+															}}
+														/> 
 													</div>
-												) : null}
+												) 
+												: null
+											}
 										</div>
 									</div>
 								</li>) : null
@@ -91,9 +159,10 @@ class UserQuestion extends Component {
 	}
 }
 
-function mapStateToProps( {questions, users}, {id} ) {
+function mapStateToProps( {questions, users}, {qid, answered} ) {
 	return {
-		id,
+		qid,
+		answered,
 		users,
 		questions
 	}

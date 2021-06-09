@@ -7,12 +7,26 @@ export default function questions (state = {}, action) {
 				...state,
 				...action.questions
 			}
+		
+			// when a user answers a question:
+			// 1. update user.answer -- qid: 'option'
+			// 2. update question.option.votes
 		case RECEIVE_QUESTION_ANSWER :
+			console.log('[action.authedUser]: ', [action.authedUser])
+			console.log('[action.qid]: ', [action.qid])
+			console.log('[action.answer]: ', [action.answer])
+			console.log('state: ', state) // questions object
+			console.log('state[action.qid][action.answer]: ', state[action.qid][action.answer])
+			
 			return {
 				...state, 
-				[action.authedUser]: action.authedUser,
-				[action.qid]: action.qid,
-				[action.answer]: action.answer
+				[action.qid]: {
+					...state[action.qid],
+					[action.answer]: {
+						...state[action.qid][action.answer],
+						votes: state[action.qid][action.answer].votes.concat([action.authedUser])
+					}
+				},
 			}
 			// it changes to states: Users, and Questions
 		case ADD_QUESTION :

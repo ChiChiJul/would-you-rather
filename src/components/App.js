@@ -13,8 +13,6 @@ import QuestionResult from './QuestionResult'
 import Nav from './Nav'
 
 class App extends Component {
-	
-	
 	componentDidMount() {
 		console.log('Inside componentDidMount')
 		this.props.dispatch(handleInitialData())
@@ -28,8 +26,10 @@ class App extends Component {
 				<Fragment>
 					{/*<LoadingBar />*/}
 					<Nav />
+				{/*<Route exact key='login' path='/login' component={Login} />*/}
 					{this.props.authedUser === null ? (
 						<div>
+						<p>Hello from App</p>
 							<Route exact key='login' path='/login' component={Login} />
 						</div>
 					) : (
