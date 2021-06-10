@@ -4,14 +4,15 @@ import { connect } from 'react-redux'
 class UserScore extends Component {
 	
 	render() {
-		const { id, users } = this.props
+		const { id, user } = this.props
 		
-		const user = users[id]
 		const answersNum = Object.keys(user.answers).length
 		const questionsNum = user.questions.length
 		const score = answersNum + questionsNum
 		
 		console.log('user: ', user)
+		console.log('answersNum: ', answersNum)
+		console.log('questionsNum: ', questionsNum)
 		
 		return (
 			<div>
@@ -44,10 +45,11 @@ class UserScore extends Component {
 	}
 }
 
-function mapStateToProps({ users }, { id }) {
+function mapStateToProps({ questions, users }, { id }) {
+	const user = users[id]
 	return {
 		id,
-		users
+		user
 	}
 }
 

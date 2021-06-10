@@ -70,14 +70,14 @@ class Question extends Component {
 								<input 
 									type='radio' 
 									id='optionOne' 
-									name='optionOne' 
+									name='option' 
 									value={optionOne.text}
 									onChange={this.handleOnChange}
 								/>{optionOne.text}
 								<input
 									type='radio' 
 									id='optionTwo' 
-									name='optionTwo' 
+									name='option' 
 									value={optionTwo.text}
 									onChange={this.handleOnChange}
 								/>{optionTwo.text}

@@ -39,8 +39,8 @@ class Dashboard extends Component {
 		return (
 			<div className='container'>
 				<div className='dashboard'>
-					<button id='unanswered' onClick={this.handleOnClick}>Unanswered Questions</button>
-					<button id='answered' onClick={this.handleOnClick}>Answered Questions</button>
+					<button id='unanswered' className='btn' onClick={this.handleOnClick}>Unanswered Questions</button>
+					<button id='answered' className='btn' onClick={this.handleOnClick}>Answered Questions</button>
 					<div className='unanswered'>
 						{showUnansweredQuestions && (
 							<ul className='dashboard-list'>

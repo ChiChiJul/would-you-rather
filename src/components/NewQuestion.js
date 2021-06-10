@@ -54,7 +54,7 @@ class NewQuestion extends Component {
 		}
 		
 		return (
-			<div>
+			<div className='new_question'>
 				<h3 className='center'>Create New Question</h3>
 				<p>Complete the question:</p>
 				<p>Would you rather...</p>

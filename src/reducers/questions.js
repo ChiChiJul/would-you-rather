@@ -37,6 +37,7 @@ export default function questions (state = {}, action) {
 			// add new question to questions state, and add question to user's
 			// question array in which user is the same as AuthedUser
 			
+			console.log('state: ', state)
 			
 			return {
 				...state,

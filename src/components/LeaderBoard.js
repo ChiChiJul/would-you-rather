@@ -12,7 +12,7 @@ class LeaderBoard extends Component {
 		console.log('in LeaderBoard')
 		
 		return (
-			<div>
+			<div className='leader_board'>
 				<ul>
 					{Object.values(sortedUsers).map((user) => 
 						<li key={user.id}>

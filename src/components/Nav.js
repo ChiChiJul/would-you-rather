@@ -69,14 +69,14 @@ class Nav extends Component {
 								exact 
 								onClick={() => this.handleOnClick() } 
 								activeClassName='active'>
-								{/*<span>Hello {user.name}</span>
+								<span>Hello, {user.name}</span>
 								<span>
 									<img 
 										src={user.avatarURL}
 										alt={'Avatar of ${user.name}'}
 										className='avatar'
 									/>
-								</span>*/}
+								</span>
 								{authedUser !== null ? 'Logout' : this.state.login}
 							</NavLink>
 						: null}

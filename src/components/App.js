@@ -31,7 +31,7 @@ class App extends Component {
 
 					{this.props.authedUser === null ? (
 						<div>
-							<Route exact key='login' path='/login' component={Login} />
+							<Route key='login' component={Login} />
 						</div>
 					) : (
 						<div>

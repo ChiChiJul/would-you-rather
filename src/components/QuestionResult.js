@@ -12,10 +12,10 @@ class QuestionResult extends Component {
 	}
 	
 	render() {
-		const { qid, user, question, optOneVotes, optTwoVotes, totalVotes, optOneVotePercent, optTwoVotePercent } = this.props
+		const { qid, user, userVote, question, optOneVotes, optTwoVotes, totalVotes, optOneVotePercent, optTwoVotePercent } = this.props
 		
 		return (
-			<div>
+			<div className='question_result'>
 			
 				<div>Asked by {user.name}</div>
 				<div>
@@ -28,27 +28,33 @@ class QuestionResult extends Component {
 				<div>
 					<div>
 						<h3>Results:</h3>
-						<div>
-							<div>
-								{question.optionOne.text}
-							</div>
-							<div>
+						<div className='result'>
+							{userVote === 'optionOne' ? (
+								<div className='circle'>Your Vote</div>
+							) : null}
+							<p>
+								Would you rather {question.optionOne.text}?
+							</p>
+							<p>
 								{optOneVotePercent}%
-							</div>
-							<div>
+							</p>
+							<p>
 								{optOneVotes} out of {totalVotes}
-							</div>
+							</p>
 						</div>
-						<div>
-							<div>
-								{question.optionTwo.text}
-							</div>
-							<div>
+						<div className='result'>
+							{userVote === 'optionTwo' ? (
+								<div className='circle'>Your Vote</div>
+							) : null}
+							<p>
+								Would you rather {question.optionTwo.text}?
+							</p>
+							<p>
 								{optTwoVotePercent}%
-							</div>
-							<div>
+							</p>
+							<p>
 								{optTwoVotes} out of {totalVotes}
-							</div>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -61,10 +67,10 @@ function mapStateToProps({ users, questions }, props) {
 	console.log('props: ', props)
 	
 	const qid = props.match.params.id
-	
 	const question = questions[qid]
-	
 	const user = users[question.author]
+	let userVote = null
+	
 	console.log('questions: ', questions)
 	console.log('question: ', question)
 	console.log('users: ', users)
@@ -75,9 +81,16 @@ function mapStateToProps({ users, questions }, props) {
 	const totalVotes = optOneVotes + optTwoVotes
 	const optOneVotePercent = (optOneVotes/totalVotes) * 100
 	const optTwoVotePercent = (optTwoVotes/totalVotes) * 100 
+
+	Object.values(users).map((user) => {
+		return Object.entries(user.answers).forEach(([key, value]) => {
+			return key === question.id ? userVote = value : null
+		})
+	})
 	
 	return {
 		users,
+		userVote,
 		questions,
 		qid,
 		question,

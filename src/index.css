@@ -30,7 +30,7 @@ a {
   border: 1px solid rgba(0,0,0,.29);
   cursor: pointer;
   background: #fff;
-  font-size: 16px;
+  font-size: 12px;
   width: 250px;
   position: relative;
 }
@@ -59,7 +59,9 @@ a {
   flex-direction: row;
   justify-content: flex-start;
   text-decoration: none;
-  margin-left: 25%;
+  /*margin: auto;*/
+  margin: 0 20% 0 20%;
+  border: red 1px solid;
 }
 
 .nav li:first-child {
@@ -83,18 +85,41 @@ li {
 }
 
 /* dashboard page */
-.dashboard {
-	margin: auto;
-	width: 320px;
+.dashboard, 
+.unanswered, 
+.answered,
+.new_question,
+.question,
+.question_result,
+.leader_board,
+.login {
+	margin: 10px auto;
+	width: 400px;
+	border: 1px solid rgba(0,0,0,.29);
 }
 
-.unanswered, answered {
-	width: 300px;
+#unanswered, #answered {
+	width: 200px;
+}
+
+/* question result page */
+.result {
+	border: 1px solid dotted;
+}
+
+.circle {
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 50%;
+	font-size: 8px;
+	color: #fff;
+	text-align: center;
+	background: orange;
 }
 
 /* login page */
 .login {
-	width: 400px;
 	padding: 20px;
 	border: red 1px solid;
 	text-align: center;
