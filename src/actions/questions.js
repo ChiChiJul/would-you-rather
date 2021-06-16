@@ -47,10 +47,8 @@ function receiveQuestionAnswer ({qid, authedUser, answer}) {
 
 // info has qid, authedUser, option/answer
 export function handleQuestionAnswer (info) {
-	console.log('info received by handleQuestionAnswer: ', info)
 	return (dispatch) => {
 		dispatch(receiveQuestionAnswer(info))
-		console.log('info received by handleQuestionAnswer: ', info)
 		
 		return saveQuestionAnswer(info)
 			.catch((e) => {

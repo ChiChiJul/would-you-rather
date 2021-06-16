@@ -18,22 +18,27 @@ a {
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 10px;
 }
 
+.userQuestion button {
+	border: 1px solid gray;
+	color: gray;
+}
+
 .btn {
   text-transform: uppercase;
-  margin: 35px auto;
+  margin: auto auto;
   padding: 10px;
-  border: 1px solid rgba(0,0,0,.29);
+  /*border: 1px solid rgba(0,0,0,.5);*/
   cursor: pointer;
-  background: #fff;
+  background: 1px solid gray;
   font-size: 12px;
-  width: 250px;
+  width: 150px;
   position: relative;
-}
+  }
 
 .btn:hover {
   border-color: rgba(0,0,0,.5);
@@ -54,6 +59,7 @@ a {
   font-weight: bold;
 }
 
+/* nav component */
 .nav ul {
   display: flex;
   flex-direction: row;
@@ -61,21 +67,55 @@ a {
   text-decoration: none;
   /*margin: auto;*/
   margin: 0 20% 0 20%;
-  border: red 1px solid;
+  width: 900px;
+  /* border: 1px solid gray;*/
 }
 
 .nav li:first-child {
   padding-left: 0;
 }
 
+hr {
+	height: 50px;
+	border: 1px solid gray;
+}
+
+.nav img {
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	margin: 0 10px;
+}
+
+.nav .login {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+	padding: 0;
+	margin: 1.8% 0 0 0;
+	width: 230px;
+	border: none;
+}
+
+/* */
 ul {
   padding-left: 0;
+  color: rgba(0,0,0,.5);
 }
 
 li {
   list-style-type: none;
   padding: 10px;
   text-decoration: none;
+  color: rgba(0,0,0,.5);
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+	text-decoration: none;
+	color: gray;
 }
 
 .avatar {
@@ -85,26 +125,103 @@ li {
 }
 
 /* dashboard page */
-.dashboard, 
+.dashboard,
 .unanswered, 
 .answered,
-.new_question,
+.userQuestion,
+.newQuestionContainer,
 .question,
-.question_result,
-.leader_board,
+.questionResult,
+/*.leaderBoard,*/
+.userScore,
 .login {
-	margin: 10px auto;
-	width: 400px;
+	margin: 40px auto auto;
+	width: 440px;
+	padding: 10px;
+}
+
+.userQuestion,
+.newQuestionContainer,
+.question,
+.questionResult,
+/*.leaderBoard,*/
+.userScore,
+.login {
 	border: 1px solid rgba(0,0,0,.29);
 }
 
-#unanswered, #answered {
-	width: 200px;
+ul.dashboard-list,
+.userQuestion,
+.unanswered, 
+.answered {
+	margin: 0;
+	padding: 0;
 }
 
-/* question result page */
+.dashboardBtn {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+button#unanswered, 
+button#answered {
+	font-size: 12px;
+	width: 200px;
+	border: 1px solid gray;
+}
+
+/* UserQuestion component */
+.userQuestion {
+	margin: 0;
+	padding: 0;
+}
+
+/* Question component */
+.questionForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding-top: 20px;
+}
+
+.questionForm input,
+.newQuestion input {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+input#optionOne, input #optionTwo {
+	padding-top: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.questionForm button, 
+.newQuestion button,
+.login button {
+	margin-top: 10px;
+	border: 1px solid gray;
+}
+
+/* NewQuestion component */
+form .newQuestion {
+	border: none;
+}
+
+/* QuestionResult component */
+.questionResult {
+	padding: 10px;
+}
+
 .result {
 	border: 1px solid dotted;
+}
+
+.num {
+	font-weight: bold;
 }
 
 .circle {
@@ -118,10 +235,15 @@ li {
 	background: orange;
 }
 
+.progressBar {
+	/* padding: 15px 0; */
+	
+}
+
 /* login page */
 .login {
 	padding: 20px;
-	border: red 1px solid;
+	border: 1px solid rgba(0,0,0,.29);
 	text-align: center;
-	margin: auto;
+	margin: 50px auto;
 }

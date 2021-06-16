@@ -47,25 +47,23 @@ class NewQuestion extends Component {
 	render() {
 		const { optionOneText, optionTwoText, toHome } = this.state
 		
-		console.log('this.props: ', this.props)
-		
 		if (toHome === true) {
 			return <Redirect to='/' />
 		}
 		
 		return (
-			<div className='new_question'>
+			<div className='newQuestionContainer'>
 				<h3 className='center'>Create New Question</h3>
 				<p>Complete the question:</p>
 				<p>Would you rather...</p>
-				<form className='new-question' onSubmit={this.handleSubmit}>
+				<form className='newQuestion' onSubmit={this.handleSubmit}>
 					<input
 						id='optionOneText'
 						placeholder='Enter Option One Text Here'
 						value={optionOneText}
 						onChange={this.handleChange}
 						className='input'
-						size={60}
+						size={50}
 					/>
 					<div>OR</div>
 					<input
@@ -74,7 +72,7 @@ class NewQuestion extends Component {
 						value={optionTwoText}
 						onChange={this.handleChange}
 						className='input'
-						size={60}
+						size={50}
 					/><br/>
 					<button
 						className='btn'

@@ -1,30 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { ProgressBar, Button } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class QuestionResult extends Component {
-	componentDidMount(props) {
-		console.log('QuestionResult Component Did Mount')
-		console.log('qid: ', this.props.match.params.id)
-	}
-	
-	componentWillUnmount() {
-		console.log('QuestionResult Component Will Unmount')
-	}
-	
 	render() {
 		const { qid, user, userVote, question, optOneVotes, optTwoVotes, totalVotes, optOneVotePercent, optTwoVotePercent } = this.props
 		
 		return (
-			<div className='question_result'>
-			
-				<div>Asked by {user.name}</div>
+			<div className='questionResult'>
 				<div>
-				<img 
-					src={user.avatarURL}
-					alt={'Avatar of ${user.name}'}
-					className='avatar'
-				/>
+					<img 
+						src={user.avatarURL}
+						alt={'Avatar of ${user.name}'}
+						className='avatar'
+					/>
 				</div>
+				<div>Asked by {user.name}</div>
 				<div>
 					<div>
 						<h3>Results:</h3>
@@ -35,9 +27,9 @@ class QuestionResult extends Component {
 							<p>
 								Would you rather {question.optionOne.text}?
 							</p>
-							<p>
-								{optOneVotePercent}%
-							</p>
+							<div className='progressBar'>
+								<ProgressBar now={optOneVotePercent} label={`${optOneVotePercent}%`} />
+							</div>
 							<p>
 								{optOneVotes} out of {totalVotes}
 							</p>
@@ -49,9 +41,9 @@ class QuestionResult extends Component {
 							<p>
 								Would you rather {question.optionTwo.text}?
 							</p>
-							<p>
-								{optTwoVotePercent}%
-							</p>
+							<div className='progressBar'>
+								<ProgressBar now={optTwoVotePercent} label={`${optTwoVotePercent}%`} />
+							</div>
 							<p>
 								{optTwoVotes} out of {totalVotes}
 							</p>
@@ -64,23 +56,17 @@ class QuestionResult extends Component {
 }
 
 function mapStateToProps({ users, questions }, props) {
-	console.log('props: ', props)
-	
 	const qid = props.match.params.id
 	const question = questions[qid]
 	const user = users[question.author]
 	let userVote = null
-	
-	console.log('questions: ', questions)
-	console.log('question: ', question)
-	console.log('users: ', users)
-	//console.log('name: ', name)
-	
 	const optOneVotes = question.optionOne.votes.length
 	const optTwoVotes = question.optionTwo.votes.length
 	const totalVotes = optOneVotes + optTwoVotes
 	const optOneVotePercent = (optOneVotes/totalVotes) * 100
 	const optTwoVotePercent = (optTwoVotes/totalVotes) * 100 
+	
+	console.log('users: ', users)
 
 	Object.values(users).map((user) => {
 		return Object.entries(user.answers).forEach(([key, value]) => {

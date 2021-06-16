@@ -10,37 +10,22 @@ class Nav extends Component {
 	}
 	
 	handleOnClick = () => {
-		//e.preventDefault()
 		const { dispatch, authedUser } = this.props
-		
-		console.log('authedUser: ', authedUser)
-		console.log('this.state.login: ', this.state.login)
-		
-		// if logged in, then update login value to logout
 		this.setState(() => ({
 			login: authedUser !== null ? 'Logout' : 'Login' // Logout
 		}))
 		
 		if (authedUser !== null && this.state.login === 'Login') {
-			console.log(`%%%%%% authedUser: ${authedUser} this.state.login: ${this.state.login}`)
 			dispatch(setAuthedUser(null))
 			this.setState(() => ({
 				login: 'Login'
 			}))
 		}
-		
-		console.log('authedUser: ', authedUser)
 	}
 	
 	render() {
 		const { authedUser, user } = this.props
 		const { login } = this.state
-
-		console.log(login) // Logout
-		console.log('authedUser: ', authedUser) // johndoe
-		console.log('user: ', user)
-		
-		//{authedUser !== null ? (login : 'Logout') : 'Login'}
 		
 		return (
 			<nav className='nav'>
@@ -60,7 +45,7 @@ class Nav extends Component {
 							Leader Board
 						</NavLink>
 					</li>
-					<li>
+					<li className='login'>
 						{authedUser !== null ?
 							<NavLink 
 								to={{
@@ -82,6 +67,7 @@ class Nav extends Component {
 						: null}
 					</li>
 				</ul>
+			<hr/>
 			</nav>
 		)
 	}

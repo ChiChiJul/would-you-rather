@@ -5,17 +5,12 @@ class UserScore extends Component {
 	
 	render() {
 		const { id, user } = this.props
-		
 		const answersNum = Object.keys(user.answers).length
 		const questionsNum = user.questions.length
 		const score = answersNum + questionsNum
 		
-		console.log('user: ', user)
-		console.log('answersNum: ', answersNum)
-		console.log('questionsNum: ', questionsNum)
-		
 		return (
-			<div>
+			<div className='userScore'>
 				<div>
 					<div>
 						<img 
@@ -28,16 +23,16 @@ class UserScore extends Component {
 						<h4>{user.name}</h4>
 						<div>
 							<span>Answered questions</span>
-							<span>{answersNum}</span>
+							<span className='num'> {answersNum}</span>
 						</div>
 						<div>
 							<span>Created questions</span>
-							<span>{questionsNum}</span>
+							<span className='num'> {questionsNum}</span>
 						</div>
 					</div>
 					<div>
 						<span>Score</span>
-						<span>{score}</span>	
+						<span className='num'> {score}</span>	
 					</div>	
 				</div>
 			</div>
@@ -47,6 +42,7 @@ class UserScore extends Component {
 
 function mapStateToProps({ questions, users }, { id }) {
 	const user = users[id]
+	
 	return {
 		id,
 		user

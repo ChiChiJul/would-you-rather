@@ -7,12 +7,8 @@ class LeaderBoard extends Component {
 	render() {
 		const { sortedUsers } = this.props
 		
-		console.log('sortedUsers: ', sortedUsers)
-		
-		console.log('in LeaderBoard')
-		
 		return (
-			<div className='leader_board'>
+			<div className='leaderBoard'>
 				<ul>
 					{Object.values(sortedUsers).map((user) => 
 						<li key={user.id}>
@@ -27,9 +23,6 @@ class LeaderBoard extends Component {
 
 function mapStateToProps({ users }) {
 	const sortedUsers = Object.values(users).sort((a, b) => {
-			//console.log('b.answers: ', b.answers.length)
-			//console.log('b.questions: ', b.questions.length)
-		//const score = 
 			return ((Object.keys(b.answers).length + b.questions.length) 
 				- (Object.keys(a.answers).length + a.questions.length))
 		}

@@ -28,19 +28,33 @@ class Dashboard extends Component {
 	}
 	
 	render() {
-		console.log(this.props)
 		const { questions, answeredQuestionIds, unansweredQuestionIds } = this.props
 		const { haveNotAnswered, haveAnswered, showUnansweredQuestions, 
 			showAnsweredQuestions } = this.state
-		console.log('state: ', this.state)
-		console.log(`showUnansweredQuestions: ${showUnansweredQuestions},
-			showAnsweredQuestions: ${showAnsweredQuestions}`)
 		
 		return (
 			<div className='container'>
 				<div className='dashboard'>
-					<button id='unanswered' className='btn' onClick={this.handleOnClick}>Unanswered Questions</button>
-					<button id='answered' className='btn' onClick={this.handleOnClick}>Answered Questions</button>
+					<div className='dashboardBtn'>
+						<button 
+							id='unanswered'
+							className='btn' 
+							style={{
+								fontWeight: showUnansweredQuestions ? 'bold' : 'normal',
+								backgroundColor: showUnansweredQuestions ? '#D3D3D3' : 'white'
+							}}
+							onClick={this.handleOnClick}>Unanswered Questions
+						</button>
+						<button 
+							id='answered' 
+							className='btn' 
+							style={{
+								fontWeight: showAnsweredQuestions ? 'bold' : 'normal',
+								backgroundColor: showAnsweredQuestions ? '#D3D3D3' : 'white'
+							}} 
+							onClick={this.handleOnClick}>Answered Questions
+						</button>
+					</div>
 					<div className='unanswered'>
 						{showUnansweredQuestions && (
 							<ul className='dashboard-list'>
@@ -79,8 +93,7 @@ class Dashboard extends Component {
 // question, otherwise an unanswered question
 function mapStateToProps({ authedUser, questions, users }) {
 	let answeredQuestionIds = [], unansweredQuestionIds = [];
-	console.log(`number of questions: ${Object.keys(questions).length}`)
-	console.log(`authedUser: ${authedUser}`)
+
 	Object.values(questions).map((value => {
 		if (value.optionOne.votes.includes(authedUser)
 			|| value.optionTwo.votes.includes(authedUser)) {
@@ -95,35 +108,11 @@ function mapStateToProps({ authedUser, questions, users }) {
 		}
 	}))
 	
-	console.log(`answered questions length: ${answeredQuestionIds.length}`)
-	console.log(`unanswered questions length: ${unansweredQuestionIds.length}`)
-	
 	return {
 		questions,
 		answeredQuestionIds,
 		unansweredQuestionIds
 	}
-	
-	/*Object.values(questions).map((value) => {
-		Object.keys(users).forEach((key) => {
-			let id, name, avatar, optionOneText, optionTwoText; 
-			if (value.author === users[key].id) {
-				
-					id = users[key].id
-					name = users[key].name
-					avatar = users[key].avatarURL
-					optionOneText = users[key].optionOne.text
-					optionTwoText = users[key].optionTwo.text
-				
-			}
-			
-		})
-	})
-									
-	return {
-		questionValues: Object.values(questions),
-		users
-	}*/
 }
 
 export default connect(mapStateToProps)(Dashboard)

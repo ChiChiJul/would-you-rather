@@ -12,16 +12,7 @@ class Question extends Component {
 		option: '',
 		submitted: false
 	}
-	
-	componentDidMount() {
-		console.log('Question Component did mount')
-	}
-	
-	componentWillUnmount() {
-		console.log('Will unmount Question Component')
-	}
 
-	
 	handleOnChange = (e) => {
 		this.setState(() => ({
 			option: e.target.id
@@ -53,7 +44,7 @@ class Question extends Component {
 		}
 
 		return (
-			<div>
+			<div class='question'>
 				<div>
 					<div>{user.name} asks:</div>
 					<div>
@@ -66,7 +57,7 @@ class Question extends Component {
 						</span>
 						<div>
 							<h3>Would You Rather...</h3>
-							<form>
+							<form className='questionForm'>
 								<input 
 									type='radio' 
 									id='optionOne' 
@@ -82,17 +73,12 @@ class Question extends Component {
 									onChange={this.handleOnChange}
 								/>{optionTwo.text}
 								<button 
-										className='btn' 
-										disabled={this.state.option === ''}
-										onClick={(e) => 
-											this.handleQuestion(e)
-										}>
-										{/*<Link 
-										to={'question_result/${qid}'} 
-										className='question_answer'
-										>*/}
-										Submit
-										{/*</Link>*/}
+									className='btn' 
+									disabled={this.state.option === ''}
+									onClick={(e) => 
+										this.handleQuestion(e)
+									}>
+									Submit
 								</button>
 							</form>	
 						</div>
