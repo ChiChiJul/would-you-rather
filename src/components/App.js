@@ -50,7 +50,7 @@ class App extends Component {
 		console.log('loading: ', loading)
 		return (
 
-			<Router forceRefresh={false}>
+			<Router>
 				<Fragment>
 					<LoadingBar />
 					<div className='container'>

@@ -21,18 +21,27 @@ class Login extends Component {
 	handleOnClick = () => {
 		const { dispatch, authedUser, users } = this.props
 		
+		console.log('in handleOnClick')
+		
 		if (this.state.loginUser !== null) {
 			dispatch(setAuthedUser(this.state.loginUser))
 		}
 		this.setState(()=> ({
 			toHome: true
 		}))
-		this.props.history.push('/')
+		//this.props.history.push('/')
 	}
 	
 	render () {
 		const { firstUser, users, loginUsers } = this.props
 		const { toHome } = this.state
+		
+		console.log('toHome: ', toHome)
+		
+		if (toHome === true) {
+			console.log('inside toHome if loop')
+			return <Redirect to='/' />
+		}
 		
 		return (
 			<div className='login'>
