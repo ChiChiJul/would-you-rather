@@ -36,12 +36,12 @@ class Nav extends Component {
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to='/new' exact activeClassName='active'>
+						<NavLink to='/add' exact activeClassName='active'>
 							New Question
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to='/leader_board' exact activeClassName='active'>
+						<NavLink to='/leaderboard' exact activeClassName='active'>
 							Leader Board
 						</NavLink>
 					</li>
@@ -54,7 +54,9 @@ class Nav extends Component {
 								exact 
 								onClick={() => this.handleOnClick() } 
 								activeClassName='active'>
-								<span>Hello, {user.name}</span>
+								<span>
+									Hello, {user.name}
+								</span>
 								<span>
 									<img 
 										src={user.avatarURL}
@@ -62,7 +64,9 @@ class Nav extends Component {
 										className='avatar'
 									/>
 								</span>
-								{authedUser !== null ? 'Logout' : this.state.login}
+								<span>
+									{authedUser !== null ? 'Logout' : this.state.login}
+								</span>
 							</NavLink>
 						: null}
 					</li>

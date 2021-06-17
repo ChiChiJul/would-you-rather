@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Question from './Question'
 import UserQuestion from './UserQuestion'
 
 class Dashboard extends Component {
@@ -28,7 +27,7 @@ class Dashboard extends Component {
 	}
 	
 	render() {
-		const { questions, answeredQuestionIds, unansweredQuestionIds } = this.props
+		const { sortedQuestions, answeredQuestionIds, unansweredQuestionIds } = this.props
 		const { haveNotAnswered, haveAnswered, showUnansweredQuestions, 
 			showAnsweredQuestions } = this.state
 		
@@ -58,7 +57,7 @@ class Dashboard extends Component {
 					<div className='unanswered'>
 						{showUnansweredQuestions && (
 							<ul className='dashboard-list'>
-							{Object.values(questions).map((question) => {
+							{Object.values(sortedQuestions).map((question) => {
 								return unansweredQuestionIds.map((qid) =>  
 									question.id === qid 
 										? (<li key={qid}><UserQuestion qid={qid} answered={haveNotAnswered} /></li>) 
@@ -70,7 +69,7 @@ class Dashboard extends Component {
 					<div className="answered">
 						{showAnsweredQuestions && (
 							<ul className='dashboard-list'>
-								{Object.values(questions).map((question) => 
+								{Object.values(sortedQuestions).map((question) => 
 									answeredQuestionIds.map((qid) =>
 										question.id === qid
 											? (<li key={qid}><UserQuestion qid={qid} answered={haveAnswered} /></li>)
@@ -94,7 +93,11 @@ class Dashboard extends Component {
 function mapStateToProps({ authedUser, questions, users }) {
 	let answeredQuestionIds = [], unansweredQuestionIds = [];
 
-	Object.values(questions).map((value => {
+	const sortedQuestions = Object.values(questions).sort((a, b) => {
+		return (b.timestamp - a.timestamp)
+	})
+
+	Object.values(sortedQuestions).map((value => {
 		if (value.optionOne.votes.includes(authedUser)
 			|| value.optionTwo.votes.includes(authedUser)) {
 				answeredQuestionIds.push(value.id)
@@ -109,7 +112,7 @@ function mapStateToProps({ authedUser, questions, users }) {
 	}))
 	
 	return {
-		questions,
+		sortedQuestions,
 		answeredQuestionIds,
 		unansweredQuestionIds
 	}

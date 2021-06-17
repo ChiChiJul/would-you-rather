@@ -20,9 +20,15 @@ class QuestionResult extends Component {
 				<div>
 					<div>
 						<h3>Results:</h3>
-						<div className='result'>
+						<div 
+							className='result'
+							style={{
+								backgroundColor: userVote === 'optionOne' ? '#D3D3D3' : '#ffffff'
+							}}>
 							{userVote === 'optionOne' ? (
-								<div className='circle'>Your Vote</div>
+								<div className='circle'>
+									Your Vote
+								</div>
 							) : null}
 							<p>
 								Would you rather {question.optionOne.text}?
@@ -34,7 +40,11 @@ class QuestionResult extends Component {
 								{optOneVotes} out of {totalVotes}
 							</p>
 						</div>
-						<div className='result'>
+						<div 
+							className='result'
+							style={{
+								backgroundColor: userVote === 'optionTwo' ? '#D3D3D3' : '#ffffff'
+							}}>
 							{userVote === 'optionTwo' ? (
 								<div className='circle'>Your Vote</div>
 							) : null}
@@ -63,8 +73,8 @@ function mapStateToProps({ users, questions }, props) {
 	const optOneVotes = question.optionOne.votes.length
 	const optTwoVotes = question.optionTwo.votes.length
 	const totalVotes = optOneVotes + optTwoVotes
-	const optOneVotePercent = (optOneVotes/totalVotes) * 100
-	const optTwoVotePercent = (optTwoVotes/totalVotes) * 100 
+	const optOneVotePercent = Math.round((optOneVotes/totalVotes) * 100)
+	const optTwoVotePercent = Math.round((optTwoVotes/totalVotes) * 100 )
 	
 	console.log('users: ', users)
 

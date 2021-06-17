@@ -40,7 +40,7 @@ class NewQuestion extends Component {
 		this.setState(() => ({
 			optionOneText: '',
 			optionTwoText: '',
-			toHome: authedUser ? false : true
+			toHome: authedUser ? true : false
 		}))
 	}
 	

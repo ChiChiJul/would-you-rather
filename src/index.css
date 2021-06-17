@@ -217,6 +217,7 @@ form .newQuestion {
 }
 
 .result {
+	padding: 10px;
 	border: 1px solid dotted;
 }
 
