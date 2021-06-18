@@ -12,14 +12,13 @@ class Login extends Component {
 	}
 	
 	handleOnChange = (option) => {
-		const { dispatch, authedUser, users } = this.props
 		this.setState(() => ({
 			loginUser: option.uid
 		}))
 	}
 	
 	handleOnClick = () => {
-		const { dispatch, authedUser, users } = this.props
+		const { dispatch } = this.props
 		
 		console.log('in handleOnClick')
 		
@@ -29,15 +28,12 @@ class Login extends Component {
 		this.setState(()=> ({
 			toHome: true
 		}))
-		//this.props.history.push('/')
 	}
 	
 	render () {
-		const { firstUser, users, loginUsers } = this.props
+		const { firstUser, existingUsers } = this.props
 		const { toHome } = this.state
-		
-		console.log('toHome: ', toHome)
-		
+
 		if (toHome === true) {
 			console.log('inside toHome if loop')
 			return <Redirect to='/' />
@@ -50,7 +46,7 @@ class Login extends Component {
 				<div>
 					{firstUser !== undefined
 						? <Select id={'dropdown'}
-							options={loginUsers}
+							options={existingUsers}
 							onChange={this.handleOnChange}
 							isOptionDisabled={(option) => option.disabled === true}>
 						</Select> : null}
@@ -68,12 +64,11 @@ class Login extends Component {
 
 function mapStateToProps ({ users }) {
 	const firstUser = Object.values(users)[0]
-	const loginUsers = []
+	const existingUsers = []
 	
-	{Object.values(users).map(user => {
-		console.log('uid: ', user.id)
+	Object.values(users).map(user => {
 		if (user.id === firstUser) {
-			loginUsers.push({
+			existingUsers.push({
 				label: user.name,
 				value: user.id,
 				uid: user.id,
@@ -81,18 +76,19 @@ function mapStateToProps ({ users }) {
 			})
 		}
 		else (
-			loginUsers.push({
+			existingUsers.push({
 				label: user.name,
 				value: user.id,
 				uid: user.id
 			})
 		)
-	})}
+		return existingUsers
+	})
 	
 	return {
 		firstUser,
 		users,
-		loginUsers
+		existingUsers
 	}
 }
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { setAuthedUser } from '../actions/authedUser'
-import Login from './Login'
 
 class Nav extends Component {
 	state = {
@@ -60,12 +59,12 @@ class Nav extends Component {
 								<span>
 									<img 
 										src={user.avatarURL}
-										alt={'Avatar of ${user.name}'}
+										alt={`Avatar of ${user.name}`}
 										className='avatar'
 									/>
 								</span>
 								<span>
-									{authedUser !== null ? 'Logout' : this.state.login}
+									{authedUser !== null ? 'Logout' : login}
 								</span>
 							</NavLink>
 						: null}

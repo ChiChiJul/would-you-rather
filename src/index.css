@@ -32,7 +32,6 @@ a {
   text-transform: uppercase;
   margin: auto auto;
   padding: 10px;
-  /*border: 1px solid rgba(0,0,0,.5);*/
   cursor: pointer;
   background: 1px solid gray;
   font-size: 12px;
@@ -247,4 +246,9 @@ form .newQuestion {
 	border: 1px solid rgba(0,0,0,.29);
 	text-align: center;
 	margin: 50px auto;
+}
+
+.404 {
+	margin: 0 20%;
+	color: red;
 }

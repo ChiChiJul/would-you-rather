@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ProgressBar, Button } from 'react-bootstrap'
+import { ProgressBar } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class QuestionResult extends Component {
 	render() {
-		const { qid, user, userVote, question, optOneVotes, optTwoVotes, totalVotes, optOneVotePercent, optTwoVotePercent } = this.props
+		const { user, userVote, question, optOneVotes, optTwoVotes, totalVotes, optOneVotePercent, optTwoVotePercent } = this.props
 		
 		return (
 			<div className='questionResult'>
 				<div>
 					<img 
 						src={user.avatarURL}
-						alt={'Avatar of ${user.name}'}
+						alt={`Avatar of ${user.name}`}
 						className='avatar'
 					/>
 				</div>

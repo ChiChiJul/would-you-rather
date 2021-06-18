@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { formatQuestion } from '../utils/helpers'
 import { handleQuestionAnswer } from '../actions/questions'
-import { Redirect } from 'react-router-dom'
-import QuestionResult from './QuestionResult'
 import { withRouter } from 'react-router-dom'
 
 class Question extends Component {
@@ -36,22 +33,22 @@ class Question extends Component {
 	}
 	
 	render() {
-		const { authedUser, user, question } = this.props
-		const { qid, timestamp, optionOne, optionTwo } = question
+		const { user, question } = this.props
+		const { optionOne, optionTwo } = question
 		
 		if (question === null) {
 			return <p>This Question does not exist</p>
 		}
 
 		return (
-			<div class='question'>
+			<div className='question'>
 				<div>
 					<div>{user.name} asks:</div>
 					<div>
 						<span>
 							<img 
 								src={user.avatarURL}
-								alt={'Avatar of ${user.name}'}
+								alt={`Avatar of ${user.name}`}
 								className='avatar'
 							/>
 						</span>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 class UserScore extends Component {
 	
 	render() {
-		const { id, user } = this.props
+		const { user } = this.props
 		const answersNum = Object.keys(user.answers).length
 		const questionsNum = user.questions.length
 		const score = answersNum + questionsNum
@@ -15,7 +15,7 @@ class UserScore extends Component {
 					<div>
 						<img 
 							src={user.avatarURL}
-							alt={'Avatar of ${user.name}'}
+							alt={`Avatar of ${user.name}`}
 							className='avatar'
 						/>
 					</div>

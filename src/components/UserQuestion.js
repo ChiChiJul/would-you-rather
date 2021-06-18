@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import Question from './Question'
 import { Redirect } from 'react-router-dom'
 
 class UserQuestion extends Component {
@@ -11,7 +9,7 @@ class UserQuestion extends Component {
 	}
 	
 	handleOnClick = (e) => {
-		const { qid, answered } = this.props
+		const { answered } = this.props
 		e.preventDefault()
 
 		this.setState(() => ({
@@ -21,8 +19,7 @@ class UserQuestion extends Component {
 	}
 
 	render() {
-		const { qid, answered, questions, users } = this.props
-		const question = questions[qid]
+		const { qid, questions, users } = this.props
 		
 		return (
 			<div className='userQuestion'>			
@@ -36,7 +33,7 @@ class UserQuestion extends Component {
 										<div>
 											<img 
 												src={user.avatarURL}
-												alt={'Avatar of ${user.name}'}
+												alt={`Avatar of ${user.name}`}
 												className='avatar'
 											/>
 										</div>
