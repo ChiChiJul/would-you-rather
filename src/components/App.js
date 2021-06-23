@@ -30,24 +30,6 @@ class App extends Component {
 					<LoadingBar />
 					<div className='container'>
 						<Nav />
-			
-			{/*<Switch>
-			{this.props.loading ? (
-				<div>
-					<Route key='login' component={Login} />
-				</div>
-			) : (
-				<Switch>
-					<Route exact path='/' component={Dashboard} />
-					<Route exact path='/question/:id' render={(props) => <Question {...props} />} />
-					<Route exact path='/question_result/:id' render={(props) => <QuestionResult {...props} />} />
-					<Route exact path='/leaderboard' component={LeaderBoard} />
-					<Route exact path='/add' component={NewQuestion} />	
-					<Route exact key='login' path='/login' component={Login} />
-					<Route render={() => <NotFound />} />
-				</Switch>
-			)}
-		</Switch>*/}
 						{loading === true 
 							? (
 								<div>
